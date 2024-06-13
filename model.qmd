@@ -1,0 +1,59 @@
+---
+title: "Penguins Model"
+format:
+  html:
+    code-fold: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## Initialize
+```{r}
+library(tidymodels)
+library(palmerpenguins)
+
+penguins_clean = penguins |> filter(!if_any(everything(), is.na))
+
+head(penguins_clean)
+```
+
+## Define Model and Fit
+
+```{r}
+# Define the recipe
+penguin_recipe = recipe(body_mass_g ~ bill_length_mm + species + sex, data = penguins_clean) |> 
+  step_dummy(all_nominal_predictors(), -all_outcomes(), one_hot = TRUE)
+
+# Define the model
+penguin_model = linear_reg() |> set_engine("lm")
+
+# Create a workflow
+penguin_workflow = workflow() |> 
+  add_recipe(penguin_recipe) |> 
+  add_model(penguin_model)
+
+# Fit the model
+penguin_fit = penguin_workflow |> fit(data = penguins_clean)
+```
+
+## Get Some Information
+
+```{r}
+# Extract the model
+model = penguin_fit |> extract_fit_parsnip() |> pluck("fit")
+
+# Extract info
+r_squared = glance(model) |> pull(r.squared)
+intercept = coef(model)[1]
+columns = prep(penguin_recipe) |> 
+  bake(new_data = penguins_clean) |> 
+  select(-body_mass_g) |> 
+  names()
+coefficients = coef(model)[-1]
+
+# Print info
+cat("R^2:", r_squared, "\n")
+cat("Intercept:", intercept, "\n")
+cat("Columns:", columns, "\n")
+cat("Coefficients:", coefficients, "\n")
+```

@@ -1,0 +1,35 @@
+---
+title: "Penguins EDA"
+format:
+  html:
+    code-fold: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## Initialize
+
+```{r}
+library(palmerpenguins)
+library(dplyr)
+library(ggplot2)
+library(gt)
+```
+
+## Penguin Size and Mass by Sex and Species
+
+```{r}
+penguins |> 
+  summarize(across(where(is.numeric), \(x) mean(x, na.rm = TRUE))) |> 
+  gt()
+```
+
+## Penguin Size vs Mass by Species
+
+```{r}
+penguins |> 
+  ggplot(aes(x = bill_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
