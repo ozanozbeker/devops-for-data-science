@@ -14,11 +14,22 @@ library(palmerpenguins)
 library(vetiver)
 library(pins)
 library(plumber)
+library(DBI)
+library(dbplyr)
 
-penguins_clean = penguins |> filter(!if_any(everything(), is.na))
+con = dbConnect(duckdb::duckdb(, dbdir = "do4ds.duckdb"))
+```
+
+## Data Clean
+
+```{r}
+penguins_clean = tbl(con, "penguins") |> 
+  filter(!if_any(everything(), is.na)) |> 
+  collect()
 
 head(penguins_clean)
 ```
+
 
 ## Define Model and Fit
 
@@ -78,11 +89,8 @@ model_board = board_folder("data/model")
 vetiver_pin_write(model_board, v)
 ```
 
-## Turn model into API
+## Disconnect DB
 
 ```{r}
-app = vetiver_api(
-  pr = pr(),
-  vetiver_model = v
-)
+dbDisconnect(con)
 ```

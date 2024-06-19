@@ -10,11 +10,18 @@ editor_options:
 ## Initialize
 
 ```{r}
-library(palmerpenguins)
+library(DBI)
 library(dplyr)
+library(dbplyr)
 library(ggplot2)
 library(gt)
 ```
+
+```{r}
+con = dbConnect(duckdb::duckdb(), "do4ds.duckdb")
+penguins = dbReadTable(con, "penguins") |> as_tibble()
+```
+
 
 ## Penguin Size and Mass by Sex and Species
 
@@ -33,3 +40,6 @@ penguins |>
   geom_smooth(method = "lm")
 ```
 
+```{r}
+dbDisconnect(con)
+```
