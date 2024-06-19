@@ -11,6 +11,9 @@ editor_options:
 ```{r}
 library(tidymodels)
 library(palmerpenguins)
+library(vetiver)
+library(pins)
+library(plumber)
 
 penguins_clean = penguins |> filter(!if_any(everything(), is.na))
 
@@ -56,4 +59,30 @@ cat("R^2:", r_squared, "\n")
 cat("Intercept:", intercept, "\n")
 cat("Columns:", columns, "\n")
 cat("Coefficients:", coefficients, "\n")
+```
+
+## Turn into Vetiver model
+
+```{r}
+v = vetiver_model(
+  model = penguin_fit, 
+  model_name = "penguin_lm",
+  save_prototype = penguins_clean)
+```
+
+## Save to Board
+
+```{r}
+model_board = board_folder("data/model")
+
+vetiver_pin_write(model_board, v)
+```
+
+## Turn model into API
+
+```{r}
+app = vetiver_api(
+  pr = pr(),
+  vetiver_model = v
+)
 ```
