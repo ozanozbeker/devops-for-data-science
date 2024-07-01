@@ -1,6 +1,9 @@
 library(shiny)
+library(log4r)
+library(httr2)
 
 api_url <- "http://127.0.0.1:8080/predict"
+log = logger()
 
 ui <- fluidPage(
   titlePanel("Penguin Mass Predictor"),
@@ -43,6 +46,8 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
+  info(log, "App Started")
+
   # Input params
   vals <- reactive(
     list(
@@ -56,10 +61,21 @@ server <- function(input, output) {
   # Fetch prediction from API
   pred <- eventReactive(
     input$predict,
-    httr2::request(api_url) |>
-      httr2::req_body_json(vals()) |>
-      httr2::req_perform() |>
-      httr2::resp_body_json(),
+    {
+      info(log, "Prediction Requested")
+
+      r <- request(api_url) |> 
+        req_body_json(vals()) |> 
+        req_perform()
+
+      info(log, "Prediction Returned")
+
+      if(resp_is_error(r)) {
+        error(log, paste("HTTP Error"))
+      }
+
+      resp_body_json(r)
+    },
     ignoreInit = TRUE
   )
 
