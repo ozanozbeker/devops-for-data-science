@@ -3,14 +3,23 @@ library(log4r)
 library(httr2)
 
 api_url <- "http://127.0.0.1:8080/predict"
-log = logger()
+log <- logger()
 
 ui <- fluidPage(
   titlePanel("Penguin Mass Predictor"),
 
-  # Model input values
   sidebarLayout(
     sidebarPanel(
+      selectInput(
+        "species",
+        "Species",
+        c("Adelie", "Chinstrap", "Gentoo")
+      ),
+      selectInput(
+        "island",
+        "Island",
+        c("Torgersen", "Biscoe", "Dream")
+      ),
       sliderInput(
         "bill_length",
         "Bill Length (mm)",
@@ -19,17 +28,35 @@ ui <- fluidPage(
         value = 45,
         step = 0.1
       ),
+      sliderInput(
+        "bill_depth",
+        "Bill Depth (mm)",
+        min = 13,
+        max = 21,
+        value = 17,
+        step = 0.1
+      ),
+      sliderInput(
+        "flipper_length",
+        "Flipper Length (mm)",
+        min = 170,
+        max = 230,
+        value = 200,
+        step = 1
+      ),
       selectInput(
         "sex",
         "Sex",
-        c("Male", "Female")
+        c("Male" = "male", "Female" = "female")
       ),
-      selectInput(
-        "species",
-        "Species",
-        c("Adelie", "Chinstrap", "Gentoo")
+      numericInput(
+        "year",
+        "Year",
+        value = 2007,
+        min = 2007,
+        max = 2009,
+        step = 1
       ),
-      # Get model predictions
       actionButton(
         "predict",
         "Predict"
@@ -40,49 +67,93 @@ ui <- fluidPage(
       h2("Penguin Parameters"),
       verbatimTextOutput("vals"),
       h2("Predicted Penguin Mass (g)"),
-      textOutput("pred")
+      textOutput("pred"),
+      h2("Log Output"),
+      verbatimTextOutput("log_output")
     )
   )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+  log_messages <- reactiveVal("")
+
+  append_log <- function(message) {
+    isolate({
+      old_logs <- log_messages()
+      new_logs <- paste(old_logs, message, sep = "\n")
+      log_messages(new_logs)
+    })
+  }
+
   info(log, "App Started")
+  append_log("App Started")
 
-  # Input params
-  vals <- reactive(
+  vals <- reactive({
     list(
+      species = input$species,
+      island = input$island,
       bill_length_mm = input$bill_length,
-      species_Chinstrap = input$species == "Chinstrap",
-      species_Gentoo = input$species == "Gentoo",
-      sex_male = input$sex == "Male"
+      bill_depth_mm = input$bill_depth,
+      flipper_length_mm = as.integer(input$flipper_length),
+      sex = input$sex,
+      year = as.integer(input$year)
     )
-  )
+  })
 
-  # Fetch prediction from API
-  pred <- eventReactive(
-    input$predict,
-    {
-      info(log, "Prediction Requested")
+  pred <- eventReactive(input$predict, {
+    info(log, "Prediction Requested")
+    append_log("Prediction Requested")
 
-      r <- request(api_url) |> 
-        req_body_json(vals()) |> 
-        req_perform()
+    r <- request(api_url) |>
+      req_body_json(list(vals())) |>
+      req_perform()
 
-      info(log, "Prediction Returned")
+    info(log, "Prediction Returned")
+    append_log("Prediction Returned")
 
-      if(resp_is_error(r)) {
-        error(log, paste("HTTP Error"))
-      }
+    if (resp_is_error(r)) {
+      error(log, paste("HTTP Error"))
+      append_log("HTTP Error")
+      return(NULL)
+    }
 
-      resp_body_json(r)
-    },
-    ignoreInit = TRUE
-  )
+    response <- resp_body_json(r)
+    info(log, paste("API Response:", jsonlite::toJSON(response, pretty = TRUE)))
+    append_log(paste("API Response:", jsonlite::toJSON(response, pretty = TRUE)))
 
-  # Render to UI
-  output$pred <- renderText(pred()$predict[[1]])
-  output$vals <- renderPrint(vals())
+    if (!is.null(response[[1]]$.pred) && length(response[[1]]$.pred) > 0) {
+      return(response[[1]]$.pred[[1]])
+    } else {
+      error(log, "Prediction value not found in response")
+      append_log("Prediction value not found in response")
+      return(NA)
+    }
+  }, ignoreInit = TRUE)
+
+  output$pred <- renderText({
+    pred_val <- pred()
+    req(pred_val)
+    if (!is.na(pred_val)) {
+      paste("Predicted Penguin Mass (g):", pred_val)
+    } else {
+      "Prediction could not be retrieved."
+    }
+  })
+
+  output$vals <- renderPrint({
+    vals()
+  })
+
+  output$log_output <- renderText({
+    log_messages()
+  })
+
+  # Update log output every second to keep it in sync
+  autoInvalidate <- reactiveTimer(1000)
+  observe({
+    autoInvalidate()
+    session$sendCustomMessage(type = 'log_output', message = log_messages())
+  })
 }
 
-# Run the application
 shinyApp(ui = ui, server = server)

@@ -10,20 +10,19 @@ editor_options:
 ## Initialize
 ```{r}
 library(tidymodels)
-library(palmerpenguins)
 library(vetiver)
 library(pins)
 library(plumber)
 library(DBI)
 library(dbplyr)
 
-con = dbConnect(duckdb::duckdb(dbdir = "do4ds.duckdb"))
+con <- dbConnect(duckdb::duckdb(dbdir = "do4ds.duckdb"))
 ```
 
 ## Data Clean
 
 ```{r}
-penguins_clean = tbl(con, "penguins") |> 
+penguins_clean <- tbl(con, "penguins") |> 
   filter(!if_any(everything(), is.na)) |> 
   collect()
 
@@ -35,56 +34,41 @@ head(penguins_clean)
 
 ```{r}
 # Define the recipe
-penguin_recipe = recipe(body_mass_g ~ bill_length_mm + species + sex, data = penguins_clean) |> 
-  step_dummy(all_nominal_predictors(), -all_outcomes(), one_hot = TRUE)
+penguin_recipe <- recipe(body_mass_g ~ ., data = penguins_clean) |> 
+  step_dummy(all_nominal_predictors(), -all_outcomes(), one_hot = TRUE) |> 
+  step_zv(all_predictors()) |>  # Remove zero variance predictors
+  step_corr(all_numeric_predictors(), threshold = 0.9)  # Remove highly correlated predictors
 
-# Define the model
-penguin_model = linear_reg() |> set_engine("lm")
+# Define the model with Ridge regression
+penguin_model <- linear_reg(penalty = 0.1, mixture = 0) |> set_engine("glmnet")
 
 # Create a workflow
-penguin_workflow = workflow() |> 
+penguin_workflow <- workflow() |> 
   add_recipe(penguin_recipe) |> 
   add_model(penguin_model)
 
 # Fit the model
-penguin_fit = penguin_workflow |> fit(data = penguins_clean)
-```
-
-## Get Some Information
-
-```{r}
-# Extract the model
-model = penguin_fit |> extract_fit_parsnip() |> pluck("fit")
-
-# Extract info
-r_squared = glance(model) |> pull(r.squared)
-intercept = coef(model)[1]
-columns = prep(penguin_recipe) |> 
-  bake(new_data = penguins_clean) |> 
-  select(-body_mass_g) |> 
-  names()
-coefficients = coef(model)[-1]
-
-# Print info
-cat("R^2:", r_squared, "\n")
-cat("Intercept:", intercept, "\n")
-cat("Columns:", columns, "\n")
-cat("Coefficients:", coefficients, "\n")
+penguin_fit <- penguin_workflow |> fit(data = penguins_clean)
 ```
 
 ## Turn into Vetiver model
 
 ```{r}
-v = vetiver_model(
+prototype_data <- penguins_clean |> select(-body_mass_g)
+
+v <- vetiver_model(
   model = penguin_fit, 
   model_name = "penguin_lm",
-  save_prototype = penguins_clean)
+  save_prototype = prototype_data)
+
+# Print the vetiver model information
+print(v)
 ```
 
 ## Save to Board
 
 ```{r}
-model_board = board_folder("data/model")
+model_board <- board_folder("data/model")
 
 vetiver_pin_write(model_board, v)
 ```
