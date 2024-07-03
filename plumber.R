@@ -4,10 +4,30 @@ library(pins)
 library(plumber)
 library(rapidoc)
 library(vetiver)
-b <- board_folder(path = "/opt/ml/data/model")
-v <- vetiver_pin_read(b, "penguin_lm")
+library(log4r)
+
+# Initialize logger
+logger = logger(appenders = file_appender("plumber.log"))
+
+# Log the start of the API
+info(logger, "Starting API...")
+
+b = board_folder(path = "/opt/ml/data/model")
+v = vetiver_pin_read(b, "penguin_lm")
+
+# Log model loading
+info(logger, "Model loaded successfully.")
 
 #* @plumber
 function(pr) {
-    pr %>% vetiver_api(v)
+  pr |> 
+    # Log each incoming request
+    pr_hook("preroute", function(req) {
+      info(logger, paste("Incoming request:", req$REQUEST_METHOD, req$PATH_INFO))
+    }) |> 
+    # Log response status
+    pr_hook("postroute", function(res) {
+      info(logger, paste("Response status:", res$status))
+    }) |> 
+    vetiver_api(v)
 }
