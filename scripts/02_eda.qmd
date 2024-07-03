@@ -8,7 +8,6 @@ editor_options:
 ---
 
 ## Initialize
-
 ```{r}
 library(DBI)
 library(dplyr)
@@ -20,11 +19,10 @@ library(gt)
 ```{r}
 con = dbConnect(duckdb::duckdb(), "do4ds.duckdb")
 penguins = dbReadTable(con, "penguins") |> as_tibble()
+con |> dbDisconnect()
 ```
 
-
 ## Penguin Size and Mass by Sex and Species
-
 ```{r}
 penguins |> 
   summarize(across(where(is.numeric), \(x) mean(x, na.rm = TRUE))) |> 
@@ -32,7 +30,6 @@ penguins |>
 ```
 
 ## Penguin Size vs Mass by Species
-
 ```{r}
 penguins |> 
   ggplot(aes(x = bill_length_mm, y = body_mass_g, color = species)) +

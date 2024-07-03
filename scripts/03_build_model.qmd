@@ -20,18 +20,17 @@ con <- dbConnect(duckdb::duckdb(dbdir = "do4ds.duckdb"))
 ```
 
 ## Data Clean
-
 ```{r}
 penguins_clean <- tbl(con, "penguins") |> 
   filter(!if_any(everything(), is.na)) |> 
   collect()
 
 head(penguins_clean)
+
+dbDisconnect(con)
 ```
 
-
 ## Define Model and Fit
-
 ```{r}
 # Define the recipe
 penguin_recipe <- recipe(body_mass_g ~ ., data = penguins_clean) |> 
@@ -52,7 +51,6 @@ penguin_fit <- penguin_workflow |> fit(data = penguins_clean)
 ```
 
 ## Turn into Vetiver model
-
 ```{r}
 prototype_data <- penguins_clean |> select(-body_mass_g)
 
@@ -66,15 +64,17 @@ print(v)
 ```
 
 ## Save to Board
-
 ```{r}
 model_board <- board_folder("data/model")
 
-vetiver_pin_write(model_board, v)
+model_board |> vetiver_pin_write(v)
 ```
 
-## Disconnect DB
-
+## Build API
 ```{r}
-dbDisconnect(con)
+vetiver_prepare_docker(
+  model_board, 
+  "penguin_lm",
+  docker_args = list(port = 8080)
+)
 ```

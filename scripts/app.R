@@ -1,6 +1,7 @@
 library(shiny)
 library(log4r)
 library(httr2)
+library(jsonlite)
 
 api_url <- "http://127.0.0.1:8080/predict"
 log <- logger()
@@ -118,8 +119,8 @@ server <- function(input, output, session) {
     }
 
     response <- resp_body_json(r)
-    info(log, paste("API Response:", jsonlite::toJSON(response, pretty = TRUE)))
-    append_log(paste("API Response:", jsonlite::toJSON(response, pretty = TRUE)))
+    info(log, paste("API Response:", toJSON(response, pretty = TRUE)))
+    append_log(paste("API Response:", toJSON(response, pretty = TRUE)))
 
     if (!is.null(response[[1]]$.pred) && length(response[[1]]$.pred) > 0) {
       return(response[[1]]$.pred[[1]])
