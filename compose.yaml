@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data:/opt/ml/data
+      - ./logs:/logs
+  
+  app:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - 3838:3838
+    volumes:
+      - ./data:/data
+      - ./logs:/logs

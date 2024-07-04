@@ -13,7 +13,7 @@ logger = logger(appenders = file_appender("logs/plumber.log"))
 # Log the start of the API
 info(logger, "Starting API...")
 
-b = board_folder(path = "/opt/ml/data/model")
+b = board_folder(path = "opt/ml/data/model")
 v = vetiver_pin_read(b, "penguin_lm")
 
 # Log model loading
