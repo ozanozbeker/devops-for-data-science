@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  penguin-model:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/opt/ml/logs
+    container_name: penguin-model
