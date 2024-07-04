@@ -17,7 +17,7 @@ library(gt)
 ```
 
 ```{r}
-con = dbConnect(duckdb::duckdb(), "do4ds.duckdb")
+con = dbConnect(duckdb::duckdb(), "../do4ds.duckdb")
 penguins = dbReadTable(con, "penguins") |> as_tibble()
 con |> dbDisconnect()
 ```

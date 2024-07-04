@@ -12,17 +12,14 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
   zlib1g-dev \
   && apt-get clean
 
-COPY vetiver_renv.lock renv.lock
+COPY renv.lock renv.lock
 RUN Rscript -e "install.packages('renv')"
 RUN Rscript -e "renv::restore()"
-
-# Create Volume for the API log
-VOLUME /opt/ml/logs
 
 # Copy over Model Board
 COPY data/model /opt/ml/data/model
 
 # Plumber API
-COPY api/plumber.R /opt/ml/plumber.R
+COPY plumber.R /opt/ml/plumber.R
 EXPOSE 8080
 ENTRYPOINT ["R", "-e", "pr <- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8080)"]

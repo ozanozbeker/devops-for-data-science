@@ -8,7 +8,7 @@ library(vetiver)
 library(log4r)
 
 # Initialize logger
-logger = logger(appenders = file_appender("/opt/ml/logs/plumber.log"))
+logger = logger(appenders = file_appender("logs/plumber.log"))
 
 # Log the start of the API
 info(logger, "Starting API...")

@@ -9,6 +9,7 @@ editor_options:
 
 ## Initialize
 ```{r}
+library(glmnet)
 library(tidymodels)
 library(vetiver)
 library(pins)
@@ -16,7 +17,7 @@ library(plumber)
 library(DBI)
 library(dbplyr)
 
-con = dbConnect(duckdb::duckdb(dbdir = "do4ds.duckdb"))
+con = dbConnect(duckdb::duckdb(dbdir = "../do4ds.duckdb"))
 ```
 
 ## Data Clean
@@ -75,16 +76,13 @@ model_board |> vetiver_pin_write(v)
 vetiver_write_plumber(
   board = model_board,
   name = "penguin_lm",
-  file = "api/plumber.R",
+  file = "plumber.R",
   rsconnect = FALSE
 )
 
 vetiver_write_docker(
   vetiver_model = v,
-  plumber_file = "api/plumber.R",
-  port = 8080,
-  additional_pkgs = c("
-    log4r" # used in api/splumber.R
-  )
+  plumber_file = "plumber.R",
+  port = 8080
 )
 ```
