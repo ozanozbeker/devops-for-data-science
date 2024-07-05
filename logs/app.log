@@ -1,48 +1,6 @@
-INFO  [2024-07-03 23:26:42] App Started
-INFO  [2024-07-03 23:26:57] Prediction Requested
-ERROR [2024-07-03 23:26:57] Error:  HTTP 500 Internal Server Error.
-INFO  [2024-07-03 23:29:29] App Started
-INFO  [2024-07-03 23:29:45] Prediction Requested
-INFO  [2024-07-03 23:29:45] Request Payload: [
-  {
-    "species": "Adelie",
-    "island": "Torgersen",
-    "bill_length_mm": 45,
-    "bill_depth_mm": 17,
-    "flipper_length_mm": 208,
-    "sex": "male",
-    "year": 2007
-  }
-]
-INFO  [2024-07-03 23:29:45] Prediction Returned
-INFO  [2024-07-03 23:29:45] API Response: [
-  {
-    ".pred": [4365.6524]
-  }
-]
-ERROR [2024-07-03 23:29:45] Prediction value not found in response
-INFO  [2024-07-03 23:30:19] Prediction Requested
-INFO  [2024-07-03 23:30:19] Request Payload: [
-  {
-    "species": "Adelie",
-    "island": "Torgersen",
-    "bill_length_mm": 45,
-    "bill_depth_mm": 17,
-    "flipper_length_mm": 208,
-    "sex": "male",
-    "year": 2007
-  }
-]
-INFO  [2024-07-03 23:30:19] Prediction Returned
-INFO  [2024-07-03 23:30:19] API Response: [
-  {
-    ".pred": [4365.6524]
-  }
-]
-ERROR [2024-07-03 23:30:19] Prediction value not found in response
-INFO  [2024-07-03 23:32:36] App Started
-INFO  [2024-07-03 23:32:44] Prediction Requested
-INFO  [2024-07-03 23:32:44] Request Payload: [
+INFO  [2024-07-05 04:30:11] App Started
+INFO  [2024-07-05 04:30:14] Prediction Requested
+INFO  [2024-07-05 04:30:14] Request Payload: [
   {
     "species": "Adelie",
     "island": "Torgersen",
@@ -53,14 +11,10 @@ INFO  [2024-07-03 23:32:44] Request Payload: [
     "year": 2007
   }
 ]
-INFO  [2024-07-03 23:32:44] Prediction Returned
-INFO  [2024-07-03 23:32:44] API Response: [
-  {
-    ".pred": [4215.3918]
-  }
-]
-INFO  [2024-07-03 23:32:46] Prediction Requested
-INFO  [2024-07-03 23:32:46] Request Payload: [
+ERROR [2024-07-05 04:30:14] Error:  Failed to perform HTTP request.
+INFO  [2024-07-05 04:32:01] App Started
+INFO  [2024-07-05 04:32:03] Prediction Requested
+INFO  [2024-07-05 04:32:03] Request Payload: [
   {
     "species": "Adelie",
     "island": "Torgersen",
@@ -71,45 +25,68 @@ INFO  [2024-07-03 23:32:46] Request Payload: [
     "year": 2007
   }
 ]
-INFO  [2024-07-03 23:32:46] Prediction Returned
-INFO  [2024-07-03 23:32:46] API Response: [
+ERROR [2024-07-05 04:32:03] Error:  Failed to perform HTTP request.
+INFO  [2024-07-05 17:11:47] App Started
+INFO  [2024-07-05 17:11:50] Prediction Requested
+INFO  [2024-07-05 17:11:50] Request Payload: [
+  {
+    "species": "Adelie",
+    "island": "Torgersen",
+    "bill_length_mm": 45,
+    "bill_depth_mm": 17,
+    "flipper_length_mm": 200,
+    "sex": "male",
+    "year": 2007
+  }
+]
+INFO  [2024-07-05 17:11:50] Sending Request to: http://localhost:8080/predict
+ERROR [2024-07-05 17:11:50] Error:  Failed to perform HTTP request.
+INFO  [2024-07-05 17:17:34] App Started
+INFO  [2024-07-05 17:17:45] Prediction Requested
+INFO  [2024-07-05 17:17:45] Request Payload: [
+  {
+    "species": "Adelie",
+    "island": "Torgersen",
+    "bill_length_mm": 45,
+    "bill_depth_mm": 17,
+    "flipper_length_mm": 200,
+    "sex": "male",
+    "year": 2007
+  }
+]
+INFO  [2024-07-05 17:17:45] Sending Request to: http://localhost:8080/predict
+ERROR [2024-07-05 17:17:45] Error:  Failed to perform HTTP request.
+INFO  [2024-07-05 17:19:12] App Started
+INFO  [2024-07-05 17:20:23] Prediction Requested
+INFO  [2024-07-05 17:20:23] Request Payload: [
+  {
+    "species": "Adelie",
+    "island": "Torgersen",
+    "bill_length_mm": 45,
+    "bill_depth_mm": 17,
+    "flipper_length_mm": 200,
+    "sex": "male",
+    "year": 2007
+  }
+]
+INFO  [2024-07-05 17:20:23] Sending Request to: http://0.0.0.0:8080/predict
+ERROR [2024-07-05 17:20:23] Error:  Failed to perform HTTP request.
+INFO  [2024-07-05 17:26:37] App Started
+INFO  [2024-07-05 17:26:44] Prediction Requested
+INFO  [2024-07-05 17:26:44] Request Payload: [
+  {
+    "species": "Adelie",
+    "island": "Torgersen",
+    "bill_length_mm": 45,
+    "bill_depth_mm": 17,
+    "flipper_length_mm": 200,
+    "sex": "male",
+    "year": 2007
+  }
+]
+INFO  [2024-07-05 17:26:44] Sending Request to: http://model-api:8080/predict
+INFO  [2024-07-05 17:26:44] API Response: [
   {
     ".pred": [4215.3918]
-  }
-]
-INFO  [2024-07-03 23:32:49] Prediction Requested
-INFO  [2024-07-03 23:32:49] Request Payload: [
-  {
-    "species": "Adelie",
-    "island": "Torgersen",
-    "bill_length_mm": 45,
-    "bill_depth_mm": 17,
-    "flipper_length_mm": 218,
-    "sex": "male",
-    "year": 2007
-  }
-]
-INFO  [2024-07-03 23:32:49] Prediction Returned
-INFO  [2024-07-03 23:32:50] API Response: [
-  {
-    ".pred": [4553.4782]
-  }
-]
-INFO  [2024-07-03 23:32:52] Prediction Requested
-INFO  [2024-07-03 23:32:52] Request Payload: [
-  {
-    "species": "Adelie",
-    "island": "Torgersen",
-    "bill_length_mm": 45,
-    "bill_depth_mm": 17,
-    "flipper_length_mm": 182,
-    "sex": "male",
-    "year": 2007
-  }
-]
-INFO  [2024-07-03 23:32:52] Prediction Returned
-INFO  [2024-07-03 23:32:52] API Response: [
-  {
-    ".pred": [3877.3053]
   }
 ]

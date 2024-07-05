@@ -70,3 +70,11 @@ model_board = board_folder("../data/model")
 
 model_board |> vetiver_pin_write(v)
 ```
+
+```{r}
+vetiver_prepare_docker(
+  model_board,
+  "penguin_lm",
+  path = "."
+)
+```

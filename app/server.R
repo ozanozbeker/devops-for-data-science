@@ -1,37 +1,11 @@
-library(shiny)
 library(log4r)
 library(httr2)
 library(jsonlite)
 
-api_url <- "http://127.0.0.1:8080/predict"
+api_url <- "http://model-api:8080/predict"
 logger <- logger(appenders = file_appender("logs/app.log"))
 
-ui <- fluidPage(
-  titlePanel("Penguin Mass Predictor"),
-
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("species", "Species", c("Adelie", "Chinstrap", "Gentoo")),
-      selectInput("island", "Island", c("Torgersen", "Biscoe", "Dream")),
-      sliderInput("bill_length", "Bill Length (mm)", min = 30, max = 60, value = 45, step = 0.1),
-      sliderInput("bill_depth", "Bill Depth (mm)", min = 13, max = 21, value = 17, step = 0.1),
-      sliderInput("flipper_length", "Flipper Length (mm)", min = 170, max = 230, value = 200, step = 1),
-      selectInput("sex", "Sex", c("Male" = "male", "Female" = "female")),
-      numericInput("year", "Year", value = 2007, min = 2007, max = 2009, step = 1),
-      actionButton("predict", "Predict")
-    ),
-
-    mainPanel(
-      h2("Penguin Parameters"),
-      verbatimTextOutput("vals"),
-      h2("Predicted Penguin Mass (g)"),
-      textOutput("pred"),
-      verbatimTextOutput("error_message")
-    )
-  )
-)
-
-server <- function(input, output, session) {
+function(input, output) {
   info(logger, "App Started")
 
   vals <- reactive({
@@ -54,11 +28,11 @@ server <- function(input, output, session) {
     info(logger, paste("Request Payload:", toJSON(payload, pretty = TRUE)))
 
     tryCatch({
+      info(logger, paste("Sending Request to:", api_url))
+
       r <- request(api_url) %>%
         req_body_json(payload) %>%
         req_perform()
-
-      info(logger, "Prediction Returned")
 
       if (resp_is_error(r)) {
         error(logger, "HTTP Error")

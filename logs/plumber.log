@@ -1,48 +1,48 @@
-INFO  [2024-07-04 02:57:53] Starting API...
-INFO  [2024-07-04 02:57:54] Model loaded successfully.
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/default.min.css
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/highlight.min.js
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /logo/vetiver.png
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/rapidoc-min.js
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /openapi.json
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UN_r8OUuhpKKSTjw.woff2
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2
-INFO  [2024-07-04 03:04:13] Response status: 200
-INFO  [2024-07-04 03:04:13] Incoming request: GET /favicon.ico
-INFO  [2024-07-04 03:04:13] Response status: 404
-INFO  [2024-07-04 03:05:27] Incoming request: POST /predict
-INFO  [2024-07-04 03:05:27] Response status: 200
-INFO  [2024-07-04 03:05:36] Incoming request: POST /predict
-INFO  [2024-07-04 03:05:36] Response status: 200
-INFO  [2024-07-04 03:05:39] Incoming request: POST /predict
-INFO  [2024-07-04 03:05:39] Response status: 200
-INFO  [2024-07-04 03:23:16] Incoming request: POST /predict
-INFO  [2024-07-04 03:23:16] Response status: 200
-INFO  [2024-07-04 03:24:34] Incoming request: GET /predict
-INFO  [2024-07-04 03:24:34] Response status: 405
-INFO  [2024-07-04 03:24:54] Incoming request: POST /predict
-INFO  [2024-07-04 03:24:54] Response status: 500
-INFO  [2024-07-04 03:26:57] Incoming request: POST /predict
-INFO  [2024-07-04 03:26:57] Response status: 500
-INFO  [2024-07-04 03:27:49] Incoming request: GET /
-INFO  [2024-07-04 03:27:49] Response status: 404
-INFO  [2024-07-04 03:29:45] Incoming request: POST /predict
-INFO  [2024-07-04 03:29:45] Response status: 200
-INFO  [2024-07-04 03:30:19] Incoming request: POST /predict
-INFO  [2024-07-04 03:30:19] Response status: 200
-INFO  [2024-07-04 03:32:44] Incoming request: POST /predict
-INFO  [2024-07-04 03:32:44] Response status: 200
-INFO  [2024-07-04 03:32:46] Incoming request: POST /predict
-INFO  [2024-07-04 03:32:46] Response status: 200
-INFO  [2024-07-04 03:32:49] Incoming request: POST /predict
-INFO  [2024-07-04 03:32:49] Response status: 200
-INFO  [2024-07-04 03:32:52] Incoming request: POST /predict
-INFO  [2024-07-04 03:32:52] Response status: 200
+INFO  [2024-07-05 04:29:50] Starting API...
+INFO  [2024-07-05 04:29:50] Model loaded successfully.
+INFO  [2024-07-05 04:30:00] Incoming request: GET /__docs__/
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:00] Incoming request: GET /__docs__/default.min.css
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:00] Incoming request: GET /__docs__/highlight.min.js
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:00] Incoming request: GET /logo/vetiver.png
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:00] Incoming request: GET /__docs__/rapidoc-min.js
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:00] Incoming request: GET /openapi.json
+INFO  [2024-07-05 04:30:00] Response status: 200
+INFO  [2024-07-05 04:30:01] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UN_r8OUuhpKKSTjw.woff2
+INFO  [2024-07-05 04:30:01] Response status: 200
+INFO  [2024-07-05 04:30:01] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2
+INFO  [2024-07-05 04:30:01] Response status: 200
+INFO  [2024-07-05 04:31:22] Starting API...
+INFO  [2024-07-05 04:31:23] Model loaded successfully.
+INFO  [2024-07-05 04:31:56] Incoming request: GET /__docs__/
+INFO  [2024-07-05 04:31:56] Response status: 200
+INFO  [2024-07-05 04:31:56] Incoming request: GET /openapi.json
+INFO  [2024-07-05 04:31:56] Response status: 200
+INFO  [2024-07-05 17:17:16] Starting API...
+INFO  [2024-07-05 17:17:17] Model loaded successfully.
+INFO  [2024-07-05 17:18:56] Starting API...
+INFO  [2024-07-05 17:18:57] Model loaded successfully.
+INFO  [2024-07-05 17:25:14] Starting API...
+INFO  [2024-07-05 17:25:16] Model loaded successfully.
+INFO  [2024-07-05 17:26:22] Incoming request: GET /__docs__/
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:22] Incoming request: GET /__docs__/default.min.css
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:22] Incoming request: GET /__docs__/highlight.min.js
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:22] Incoming request: GET /logo/vetiver.png
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:22] Incoming request: GET /__docs__/rapidoc-min.js
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:22] Incoming request: GET /openapi.json
+INFO  [2024-07-05 17:26:22] Response status: 200
+INFO  [2024-07-05 17:26:23] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2
+INFO  [2024-07-05 17:26:23] Response status: 200
+INFO  [2024-07-05 17:26:23] Incoming request: GET /__docs__/s/opensans/v18/mem5YaGs126MiZpBA-UN_r8OUuhpKKSTjw.woff2
+INFO  [2024-07-05 17:26:23] Response status: 200
+INFO  [2024-07-05 17:26:44] Incoming request: POST /predict
+INFO  [2024-07-05 17:26:44] Response status: 200

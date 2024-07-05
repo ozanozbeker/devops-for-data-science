@@ -1,25 +1,18 @@
-version: "3.8"
-
 services:
-  
-  api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    container_name: api
+
+  model-api:
+    build: ./api
+    volumes:
+      - ./data:/opt/ml/data:rw
+      - ./logs:/opt/ml/logs:rw
     ports:
       - 8080:8080
+
+  shiny-app:
+    depends_on:
+      - model-api
+    build: ./app
     volumes:
-      - ./data:/opt/ml/data
-      - ./logs:/logs
-  
-  app:
-    build: 
-      context: ./app
-      dockerfile: Dockerfile
-    container_name: app
+      - ./logs:/app/logs:rw
     ports:
       - 3838:3838
-    volumes:
-      - ./data:/data
-      - ./logs:/logs

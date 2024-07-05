@@ -1,12 +1,12 @@
 file: penguin_lm.rds
-file_size: 21220
-pin_hash: b203ee674e8c9d86
+file_size: 21219
+pin_hash: 62d7804e0ebae9bc
 type: rds
 title: 'penguin_lm: a pinned list'
 description: A glmnet regression modeling workflow
 tags: ~
 urls: ~
-created: 20240704T200831Z
+created: 20240705T164345Z
 api_version: 1
 user:
   required_pkgs:
