@@ -3,10 +3,11 @@ services:
   model-api:
     build: ./api
     volumes:
-      - ./data:/opt/ml/data:rw
       - ./logs:/opt/ml/logs:rw
     ports:
       - 8080:8080
+    env_file:
+      - .env
 
   shiny-app:
     depends_on:

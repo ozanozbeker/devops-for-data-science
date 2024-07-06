@@ -46,3 +46,16 @@ INFO  [2024-07-05 17:26:23] Incoming request: GET /__docs__/s/opensans/v18/mem5Y
 INFO  [2024-07-05 17:26:23] Response status: 200
 INFO  [2024-07-05 17:26:44] Incoming request: POST /predict
 INFO  [2024-07-05 17:26:44] Response status: 200
+INFO  [2024-07-06 17:07:09] Starting API...
+INFO  [2024-07-06 17:11:13] Starting API...
+INFO  [2024-07-06 17:16:51] Starting API...
+INFO  [2024-07-06 17:20:34] Starting API...
+INFO  [2024-07-06 17:20:35] Model loaded successfully.
+INFO  [2024-07-06 17:29:29] Starting API...
+INFO  [2024-07-06 17:29:30] Model loaded successfully.
+INFO  [2024-07-06 17:29:52] Incoming request: POST /predict
+INFO  [2024-07-06 17:29:52] Response status: 200
+INFO  [2024-07-06 17:29:54] Incoming request: POST /predict
+INFO  [2024-07-06 17:29:54] Response status: 200
+INFO  [2024-07-06 17:29:57] Incoming request: POST /predict
+INFO  [2024-07-06 17:29:57] Response status: 200

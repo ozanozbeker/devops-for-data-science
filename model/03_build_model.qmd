@@ -9,7 +9,7 @@ editor_options:
 
 ## Initialize
 ```{r}
-library(glmnet)
+require(glmnet)
 library(tidymodels)
 library(vetiver)
 library(pins)
@@ -66,15 +66,7 @@ print(v)
 
 ## Save to Board
 ```{r}
-model_board = board_folder("../data/model")
+model_board = board_s3("do4ds")
 
 model_board |> vetiver_pin_write(v)
-```
-
-```{r}
-vetiver_prepare_docker(
-  model_board,
-  "penguin_lm",
-  path = "."
-)
 ```

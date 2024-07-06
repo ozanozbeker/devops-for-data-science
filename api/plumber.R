@@ -4,6 +4,11 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 library(log4r)
+library(paws)
+library(glmnet)                                                                                                   
+library(parsnip)                                                                                                  
+library(recipes)                                                                                                
+library(workflows)
 
 # Initialize logger
 logger = logger(appenders = file_appender("logs/plumber.log"))
@@ -11,7 +16,7 @@ logger = logger(appenders = file_appender("logs/plumber.log"))
 # Log the start of the API
 info(logger, "Starting API...")
 
-b = board_folder(path = "data/model")
+b = board_s3("do4ds")
 v = vetiver_pin_read(b, "penguin_lm")
 
 # Log model loading
